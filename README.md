@@ -1,2 +1,6 @@
 # probable-parakeet
-sljfsdjfsdlk
+## Project setup
+```
+npm install
+npx nodemon
+```
