@@ -8,6 +8,7 @@ const books = [
     { title: 'Lorem legacies', id: 3 }
 ]
 
+// read request handlers
 app.get('/', (req, res) => {
     res.send('Welcome to the node.js tutorial')
 })
@@ -16,11 +17,16 @@ app.get('/api/books', (req, res) => {
     res.send(books)
 })
 
-app.get('/api/books/:id', (req,res) => {
+app.get('/api/books/:id', (req, res) => {
     console.log(req.params.id);
-    const  book = books.find(c => c.id === parseInt(req.params.id))
-    if(!book) res.status(404).send('<h1 style="font-family: sans; color: tomato;">Ooops... Cannot find what you are looking for</h1>')
+    const book = books.find(c => c.id === parseInt(req.params.id))
+    if (!book) res.status(404).send('<h1 style="font-family: sans; color: tomato;">Ooops... Cannot find what you are looking for</h1>')
     res.send(book)
+})
+
+// create request handler
+app.post('/api/books', (req, res) => {
+    const book = books.find(c => c.id === parseInt(req.params.id))
 })
 
 
