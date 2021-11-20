@@ -65,5 +65,12 @@ app.delete('/api/books/:id', (req, res) => {
     res.send(book)
 })
 
+function validateBook(book) {
+    const schema = {
+        title: Joi.string().min(3).required()
+    }
+    return Joi.validate(book, schema)
+}
 
-app.listen(3000, () => console.log('Active on port 3000'))
+const port = process.env.PORT || 8080
+app.listen(port, () => console.log(`Listening on port ${port}...`))
