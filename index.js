@@ -18,7 +18,6 @@ app.get('/api/books', (req, res) => {
 })
 
 app.get('/api/books/:id', (req, res) => {
-    console.log(req.params.id);
     const book = books.find(c => c.id === parseInt(req.params.id))
     if (!book) res.status(404).send('<h1 style="font-family: sans; color: tomato;">Ooops... Cannot find what you are looking for</h1>')
     res.send(book)
@@ -26,11 +25,11 @@ app.get('/api/books/:id', (req, res) => {
 
 // create request handler
 app.post('/api/books', (req, res) => {
-    const {error} = validateBook(req.body)
-    if(error) {
+    const { error } = validateBook(req.body)
+    if (error) {
         res.status(400).send(error.details[0].message)
         return
-    }  
+    }
     const book = {
         id: books.length + 1,
         title: req.body.title,
@@ -39,8 +38,17 @@ app.post('/api/books', (req, res) => {
     res.send(book)
 })
 
+// update request handler
+app.put('/api/books/:id', (req, res) => {
+    const book = books.find(c => c.id === parseInt(req.params.id))
+    if (!book) res.status(404).send('<h1 style="font-family: sans; color: tomato;">Not found!</h1>')
 
-
+    const { error } = validateBook(req.body)
+    if (error) {
+        res.status(400).send(error.details[0].message)
+        return
+    }
+})
 
 
 app.listen(3000, () => console.log('Active on port 3000'))
