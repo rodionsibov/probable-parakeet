@@ -26,7 +26,8 @@ app.get('/api/books/:id', (req, res) => {
 
 // create request handler
 app.post('/api/books', (req, res) => {
-    const book = books.find(c => c.id === parseInt(req.params.id))
+    const {error} = validateBook(req.body)
+    
 })
 
 
