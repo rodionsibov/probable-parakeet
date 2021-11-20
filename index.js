@@ -1,4 +1,5 @@
 const express = require('express')
+const Joi = require('joi')
 const app = express()
 app.use(express.json())
 
@@ -48,6 +49,20 @@ app.put('/api/books/:id', (req, res) => {
         res.status(400).send(error.details[0].message)
         return
     }
+
+    book.title = req.body.title
+    res.send(book)
+})
+
+// delete request handler
+app.delete('/api/books/:id', (req, res) => {
+    const book = books.find(c => c.id === parseInt(req.params.id))
+    if (!book) res.status(404).send('<h1 style="font-family: sans; color: tomato;">Not found!</h1>')
+
+    const index = books.indexOf(book)
+    books.splice(index, 1)
+
+    res.send(book)
 })
 
 
