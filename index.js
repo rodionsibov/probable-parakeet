@@ -27,8 +27,19 @@ app.get('/api/books/:id', (req, res) => {
 // create request handler
 app.post('/api/books', (req, res) => {
     const {error} = validateBook(req.body)
-    
+    if(error) {
+        res.status(400).send(error.details[0].message)
+        return
+    }  
+    const book = {
+        id: books.length + 1,
+        title: req.body.title,
+    }
+    books.push(book)
+    res.send(book)
 })
+
+
 
 
 
